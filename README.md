@@ -35,9 +35,6 @@ python main.py
 - **Calculate AUC**: Click the 'Calculate' button to calculate the AUC.
 > Leave unused fields empty. Use decimal points (e.g., 1.5), not commas (e.g., 1,5).
 
-## Compiling to a Windows Executable
-If you’re on Linux or another OS but want to create a Windows executable:
-
 ## Contributing
 Feel free to submit issues or pull requests for improvements or bug fixes! Contributions are welcomed.
 
