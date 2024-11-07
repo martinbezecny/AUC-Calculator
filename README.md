@@ -16,6 +16,10 @@ A simple GUI-based Python application to calculate the Area Under Curve (AUC) fo
 - NumPy: Used for AUC calculations via numerical integration.
 
 ## Installation
+### Download executable for Windows
+Download the .EXE file and run: [AUC Calculator.exe](https://github.com/martinbezecny/AUC-Calculator/releases/download/Windows/AUC.Calculator.exe)
+___
+### Clone git repository
 - Clone the Repository
 ```
 git clone https://github.com/martinbezecny/AUC-Calculator
