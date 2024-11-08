@@ -14,6 +14,7 @@ A simple GUI-based Python application to calculate the Area Under Curve (AUC) fo
 ## Requirements
 - Python 3.7+
 - NumPy: Used for AUC calculations via numerical integration.
+- CustomTkinter: Used for GUI.
 
 ## Installation
 ### Download executable for Windows
