@@ -39,6 +39,10 @@ python main.py
 - **Calculate AUC**: Click the 'Calculate' button to calculate the AUC.
 > Leave unused fields empty. Use decimal points (e.g., 1.5), not commas (e.g., 1,5).
 
+## Task list
+- [x] Update layout to fit lower DPI screens
+- [ ] Create a new executable for Win
+
 ## Contributing
 Feel free to submit issues or pull requests for improvements or bug fixes! Contributions are welcomed.
 
