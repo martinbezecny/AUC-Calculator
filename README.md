@@ -27,7 +27,7 @@ cd AUC-Calculator
 ```
 - Install Dependencies
 ```
-pip install numpy customtkinter
+pip install -r requirements.txt
 ```
 - Run the Application
 ```
