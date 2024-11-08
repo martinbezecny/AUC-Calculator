@@ -9,7 +9,7 @@ A simple GUI-based Python application to calculate the Area Under Curve (AUC) fo
 - **Error Handling**: Displays error messages for invalid input or insufficient data.
 
 ## Preview
-![Screenshot of AUC Calculator](https://i.imgur.com/Ve2yALd.png)
+![Screenshot of AUC Calculator](https://i.imgur.com/6iJuQjt.png)
 
 ## Requirements
 - Python 3.7+
