@@ -41,7 +41,7 @@ python main.py
 
 ## Task list
 - [x] Update layout to fit lower DPI screens
-- [ ] Create a new executable for Win
+- [x] Create a new executable for Win
 
 ## Contributing
 Feel free to submit issues or pull requests for improvements or bug fixes! Contributions are welcomed.
