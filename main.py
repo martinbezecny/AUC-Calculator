@@ -1,8 +1,13 @@
-import tkinter as tk
+import customtkinter as ctk
 from tkinter import messagebox
 import numpy as np
 
+# Set appearance and color theme
+ctk.set_appearance_mode("Light")
+ctk.set_default_color_theme("blue")
 
+
+# Function to calculate AUC
 def calculate_auc():
     x_vals = []
     y_vals = []
@@ -20,23 +25,31 @@ def calculate_auc():
                 messagebox.showerror("Invalid Input", f"Please enter valid numbers in row {i + 1}.")
                 return
 
-    # Check for duplicate x-values
-    if len(x_vals) != len(set(x_vals)):
-        messagebox.showerror("Duplicate x-Values", "Duplicate x-values were detected. Enter unique x-values.")
-        return
-
     if len(x_vals) < 2:
         messagebox.showerror("Insufficient Data", "At least two valid points are required to calculate AUC.")
+        return
+
+    if len(x_vals) != len(set(x_vals)):
+        messagebox.showerror("Duplicate x-values", "Duplicate x-values detected. Each x-value must be unique.")
         return
 
     sorted_coords = sorted(zip(x_vals, y_vals), key=lambda coord: coord[0])
     x_vals, y_vals = zip(*sorted_coords)
 
     auc = np.trapezoid(y_vals, x_vals)
-    auc_result_field.config(state="normal")  # Make field editable to update
-    auc_result_field.delete(0, tk.END)       # Clear current content
-    auc_result_field.insert(0, f"{auc:.2f}") # Insert the new AUC result
-    auc_result_field.config(state="readonly") # Make field readonly again
+    auc_result_field.configure(state="normal")
+    auc_result_field.delete(0, ctk.END)
+    auc_result_field.insert(0, f"{auc:.2f}")
+    auc_result_field.configure(state="readonly")
+
+
+def clear_fields():
+    for entry in x_entries + y_entries:
+        entry.delete(0, ctk.END)
+    auc_result_field.configure(state="normal")
+    auc_result_field.delete(0, ctk.END)
+    auc_result_field.configure(state="readonly")
+
 
 def show_help():
     messagebox.showinfo("Help",
@@ -44,23 +57,29 @@ def show_help():
                         "Use decimal points, not decimal commas.\n\n© 2024 Martin Bezecný")
 
 
-# GUI Setup
-root = tk.Tk()
+# GUI Setup with customtkinter
+root = ctk.CTk()
 root.title("AUC Calculator")
+root.configure(bg="#EBEBEB")  # Set consistent background color
 
-# Center window on the screen
-root.update_idletasks()
-width = root.winfo_screenwidth()
-height = root.winfo_screenheight()
-root.geometry(f"+{width // 4}+{height // 10}")  # Positioning near the center
-
-# Frame for padding
-frame = tk.Frame(root, padx=20, pady=20)
-frame.pack(fill="both", expand=True)
+# Frame with consistent background color
+frame = ctk.CTkFrame(root, fg_color="#EBEBEB")
+frame.pack(fill="both", expand=True, padx=20, pady=20)
 
 # Header Label - centered with `nsew` alignment
-heading_label = tk.Label(frame, text="AUC Calculator", font=("Tahoma", 16, "bold"))
+heading_label = ctk.CTkLabel(frame, text="AUC Calculator", font=("Arial", 25, "bold"))
 heading_label.grid(row=0, column=0, columnspan=7, pady=(0, 10), sticky="nsew")
+
+# Axis labels "x y x y" for columns
+x1_label = ctk.CTkLabel(frame, text="x", font=("Arial", 14, "bold"))
+x1_label.grid(row=1, column=1, pady=(0, 1), sticky="n")
+y1_label = ctk.CTkLabel(frame, text="y", font=("Arial", 14, "bold"))
+y1_label.grid(row=1, column=2, pady=(0, 1), sticky="n")
+
+x2_label = ctk.CTkLabel(frame, text="x", font=("Arial", 14, "bold"))
+x2_label.grid(row=1, column=5, pady=(0, 1), sticky="n")
+y2_label = ctk.CTkLabel(frame, text="y", font=("Arial", 14, "bold"))
+y2_label.grid(row=1, column=6, pady=(0, 1), sticky="n")
 
 # Coordinate Entry Fields
 x_entries = []
@@ -68,45 +87,50 @@ y_entries = []
 
 # Left side: Points 1-13
 for i in range(13):
-    tk.Label(frame, text=f"Point {i + 1}").grid(row=i + 1, column=0, padx=5, pady=2, sticky="e")
+    ctk.CTkLabel(frame, text=f"Point {i + 1}").grid(row=i + 2, column=0, padx=5, pady=2, sticky="e")
 
-    x_entry = tk.Entry(frame, width=10)
-    x_entry.grid(row=i + 1, column=1, padx=5, pady=2)
+    x_entry = ctk.CTkEntry(frame, width=80)
+    x_entry.grid(row=i + 2, column=1, padx=5, pady=2)
     x_entries.append(x_entry)
 
-    y_entry = tk.Entry(frame, width=10)
-    y_entry.grid(row=i + 1, column=2, padx=5, pady=2)
+    y_entry = ctk.CTkEntry(frame, width=80)
+    y_entry.grid(row=i + 2, column=2, padx=5, pady=2)
     y_entries.append(y_entry)
 
-# Right side: Points 14-26, with a slightly reduced gap
+# Right side: Points 14-26
 for i in range(13, 26):
-    tk.Label(frame, text=f"Point {i + 1}").grid(row=i - 12, column=4, padx=5, pady=2, sticky="e")  # Reduced gap
+    ctk.CTkLabel(frame, text=f"Point {i + 1}").grid(row=i - 11, column=4, padx=(30, 5), pady=2, sticky="e")
 
-    x_entry = tk.Entry(frame, width=10)
-    x_entry.grid(row=i - 12, column=5, padx=5, pady=2)
+    x_entry = ctk.CTkEntry(frame, width=80)
+    x_entry.grid(row=i - 11, column=5, padx=(5, 30), pady=2)
     x_entries.append(x_entry)
 
-    y_entry = tk.Entry(frame, width=10)
-    y_entry.grid(row=i - 12, column=6, padx=5, pady=2)
+    y_entry = ctk.CTkEntry(frame, width=80)
+    y_entry.grid(row=i - 11, column=6, padx=5, pady=2)
     y_entries.append(y_entry)
 
-# Buttons and Result Display
-calc_button = tk.Button(frame, text="Calculate", command=calculate_auc)
-calc_button.grid(row=14, column=3, pady=10, padx=(0, 0), sticky="n")
 
-help_button = tk.Button(frame, text="?", command=show_help, font=("Tahoma", 10, "bold"), width=2, height=1)
-help_button.grid(row=14, column=6, sticky="e", padx=(10, 0))
+# Result and Buttons on Last Row with Extra Spacing
+frame.grid_rowconfigure(15, minsize=20)  # Add space between inputs and buttons
 
-# Result Label and Wider Read-Only Entry
-result_label = tk.Label(frame, text="AUC:", font=("Tahoma", 12, "bold"))
-result_label.grid(row=15, column=2, sticky="e", pady=(10, 0), padx=(0, 20))
+result_label = ctk.CTkLabel(frame, text="AUC = ", font=("Arial", 18, "bold"))
+result_label.grid(row=16, column=1, sticky="e", pady=(10, 0), padx=(5, 5))
 
-auc_result_field = tk.Entry(frame, font=("Tahoma", 12), width=20, state="readonly", justify="center")
-auc_result_field.grid(row=15, column=3, columnspan=3, pady=(10, 0), sticky="w")
+auc_result_field = ctk.CTkEntry(frame, font=("Arial", 14), width=175, state="readonly", justify="center")
+auc_result_field.grid(row=16, column=2, columnspan=2, pady=(10, 0), sticky="we")
 
-# Make the window adapt to content
-root.update_idletasks()  # Update geometry based on added widgets
-root.minsize(root.winfo_reqwidth(), root.winfo_reqheight())  # Set min size based on required size
-root.geometry("")
+# Calculate, Clear, and Help Buttons
+calc_button = ctk.CTkButton(frame, text="Calculate", font=("Arial", 14, "bold"), command=calculate_auc)
+calc_button.grid(row=16, column=4, sticky="we", padx=(5, 0), pady=(10, 0))
+
+clear_button = ctk.CTkButton(frame, text="Clear", font=("Arial", 14, "bold"), command=clear_fields, fg_color="red", hover_color="#a83232", width=80, height=30)
+clear_button.grid(row=16, column=5, sticky="we", padx=(5, 0), pady=(10, 0))
+
+help_button = ctk.CTkButton(frame, text="?", font=("Arial", 14, "bold"), command=show_help, width=30, height=30)
+help_button.grid(row=16, column=6, sticky="e", padx=(10, 0), pady=(10, 0))
+
+# Set minimum window size based on required size of widgets
+root.update_idletasks()
+root.minsize(root.winfo_reqwidth(), root.winfo_reqheight())
 
 root.mainloop()
