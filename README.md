@@ -18,10 +18,10 @@ A simple GUI-based Python application to calculate the Area Under Curve (AUC) fo
 
 ## Installation
 ### Download executable for Windows
-Download the .EXE file and run: TODO
+Download the executable and run: [AUC Calculator v1.1.0.exe](https://github.com/martinbezecny/AUC-Calculator/releases/download/v1.1.0/AUC.Calculator.v1.1.0.exe)
 ___
 ### Clone git repository
-- Clone the Repository
+- Clone the repository
 ```
 git clone https://github.com/martinbezecny/AUC-Calculator
 cd AUC-Calculator
