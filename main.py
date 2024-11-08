@@ -57,10 +57,30 @@ def show_help():
                         "Use decimal points, not decimal commas.\n\n© 2024 Martin Bezecný")
 
 
+# Function to center the window
+def center_window():
+    root.update_idletasks()  # Update "requested" size of the window after layout
+    window_width = root.winfo_reqwidth()
+    window_height = root.winfo_reqheight()
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # Calculate the coordinates for the window to be centered
+    x_cord = int((screen_width - window_width) / 2)
+    y_cord = int((screen_height - window_height) / 2)
+
+    # Position the window in the center of the screen
+    root.geometry(f"{window_width}x{window_height}+{x_cord}+{y_cord}")
+
+
 # GUI Setup with customtkinter
 root = ctk.CTk()
 root.title("AUC Calculator")
 root.configure(bg="#EBEBEB")  # Set consistent background color
+root.geometry("+0+0")  # Initial position at top-left corner
+
+# Center the window after the initial display
+root.after(10, center_window)
 
 # Frame with consistent background color
 frame = ctk.CTkFrame(root, fg_color="#EBEBEB")
@@ -111,23 +131,23 @@ for i in range(13, 26):
 
 
 # Result and Buttons on Last Row with Extra Spacing
-frame.grid_rowconfigure(15, minsize=20)  # Add space between inputs and buttons
+frame.grid_rowconfigure(15, minsize=20)
 
 result_label = ctk.CTkLabel(frame, text="AUC = ", font=("Arial", 18, "bold"))
-result_label.grid(row=16, column=1, sticky="e", pady=(10, 0), padx=(5, 5))
+result_label.grid(row=16, column=1, sticky="e", pady=(10, 15), padx=(5, 5))
 
 auc_result_field = ctk.CTkEntry(frame, font=("Arial", 14), width=175, state="readonly", justify="center")
-auc_result_field.grid(row=16, column=2, columnspan=2, pady=(10, 0), sticky="we")
+auc_result_field.grid(row=16, column=2, columnspan=2, pady=(10, 15), sticky="we")
 
 # Calculate, Clear, and Help Buttons
 calc_button = ctk.CTkButton(frame, text="Calculate", font=("Arial", 14, "bold"), command=calculate_auc)
-calc_button.grid(row=16, column=4, sticky="we", padx=(5, 0), pady=(10, 0))
+calc_button.grid(row=16, column=4, sticky="we", padx=(5, 0), pady=(10, 15))
 
 clear_button = ctk.CTkButton(frame, text="Clear", font=("Arial", 14, "bold"), command=clear_fields, fg_color="red", hover_color="#a83232", width=80, height=30)
-clear_button.grid(row=16, column=5, sticky="we", padx=(5, 0), pady=(10, 0))
+clear_button.grid(row=16, column=5, sticky="we", padx=(5, 0), pady=(10, 15))
 
 help_button = ctk.CTkButton(frame, text="?", font=("Arial", 14, "bold"), command=show_help, width=30, height=30)
-help_button.grid(row=16, column=6, sticky="e", padx=(10, 0), pady=(10, 0))
+help_button.grid(row=16, column=6, sticky="e", padx=(10, 5), pady=(10, 15))
 
 # Set minimum window size based on required size of widgets
 root.update_idletasks()
